@@ -11,7 +11,7 @@ app.use(logger());
 
 app.use('*', (c, next) => {
   c.header('Access-Control-Allow-Origin', '*'); // Allow all origins
-  c.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS,PUT'); // Allow desired methods
+  c.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS,PATCH ,DELETE'); // Allow desired methods
   c.header('Access-Control-Allow-Headers', '*'); // Allow all headers
   return next();
 });
@@ -86,10 +86,10 @@ app.patch(
       if (data.content) {
         todo[0].content = data.content;
       }
-      else if (data.completed) {
+       if (typeof data.completed ==="boolean") {
         todo[0].completed = data.completed;
       }
-      else if(data.completed && data.content){
+       if(typeof data.completed ==='boolean' && data.content){
         todo[0].content = data.content;
         todo[0].completed = data.completed;
       }
