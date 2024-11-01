@@ -9,6 +9,15 @@ import { toEditorSettings } from "typescript";
 const app = new Hono();
 app.use(logger());
 
+app.use('*', (c, next) => {
+  c.header('Access-Control-Allow-Origin', '*'); // Allow all origins
+  c.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Allow desired methods
+  c.header('Access-Control-Allow-Headers', '*'); // Allow all headers
+  return next();
+});
+
+
+
 const db = drizzle(process.env.DATABASE_URL!);
 
 const Todo_Schema = z.object({
