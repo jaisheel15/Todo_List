@@ -1,21 +1,19 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
+import {cors} from "hono/cors";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
 import {logger} from "hono/logger";
 import {drizzle} from 'drizzle-orm/neon-http';
 import {Todos} from './db/schema';
-import { toEditorSettings } from "typescript";
 const app = new Hono();
 app.use(logger());
 
-app.use('*', (c, next) => {
-  c.header('Access-Control-Allow-Origin', '*'); // Allow all origins
-  c.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS,PATCH ,DELETE'); // Allow desired methods
-  c.header('Access-Control-Allow-Headers', '*'); // Allow all headers
-  return next();
-});
-
+app.use('*' ,cors({
+  origin:"*",
+  allowMethods: ["POST", "GET", "PATCH", "DELETE"],
+  allowHeaders: ["Content-Type", "Authorization" , "Accept" , "Access-Control-Allow-Origin"],
+}))
 
 
 const db = drizzle(process.env.DATABASE_URL!);
