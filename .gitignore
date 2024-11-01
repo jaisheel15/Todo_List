@@ -1,0 +1,24 @@
+# Node.js and TypeScript files
+node_modules/
+dist/
+build/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.iml
+
+# Log files
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Bun files
+.bun/
+bun.lockb
+
+# Environment variables
+.env
